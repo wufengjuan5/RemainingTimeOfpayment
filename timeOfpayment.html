@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a id="hours">10</a>：<a id="miniter">00</a>：<a id="time">00</a>
+    <script>
+        window.onload=function(){
+            var hours = document.getElementById('hours');
+            var miniter = document.getElementById('miniter');
+            var time = document.getElementById('time');
+            var timer=null;
+            var t1=new Date()//='2017/01/05 13:31';
+                t1.setHours(t1.getHours() + 10);
+            timer=setInterval(test,1000);
+            function test(){
+                var d=cd(t1, new Date(), 'd');
+                var h=cd(t1, new Date(), 'h');
+                var m=cd(t1, new Date(), 'm');
+                var s=cd(t1, new Date(), 's');
+                hours.innerHTML=h.toString().length==2?h:'0'+h;
+                miniter.innerHTML=m.toString().length==2?m:'0'+m;
+                time.innerHTML=s.toString().length==2?s:'0'+s;
+            }
+            function cd(t1, t2, tg) {
+                //相差的毫秒数
+                var ms = Date.parse(t1) - Date.parse(t2);
+                var minutes = 1000 * 60;
+                var hours = minutes * 60;
+                var days = hours * 24;
+                var years = days * 365;
+                //求出天数
+                var d = Math.floor(ms / days);
+                //求出除开天数，剩余的毫秒数
+                ms %= days;
+                var h = Math.floor(ms / hours);
+                ms %= hours;
+                var m = Math.floor(ms / minutes);
+                ms %= minutes;
+                var s = Math.floor(ms / 1000);
+                //返回所需值并退出函数
+                switch(tg){
+                case 'd' : return d;
+                case 'h' : return h;
+                case 'm' : return m;
+                case 's' : return s;
+                }
+            }  
+        }
+        </script>
+</body>
+</html>
